@@ -1,0 +1,5 @@
+mlflow
+pyspark
+delta-spark
+pandas
+scikit-learn

@@ -1,0 +1,24 @@
+services:
+  spark:
+    container_name: spark
+    user: "0:0"
+    build: .
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./logs/mlruns:/app/logs/mlruns
+    ports:
+      - "4040:4040"
+      - "8080:8080"
+      - "7077:7077"
+    restart: always
+
+  mlflow-ui:
+    container_name: mlflow
+    build: .
+    command: python -m mlflow ui --backend-store-uri file:///app/logs/mlruns --host 0.0.0.0 --port 5001
+    volumes:
+      - ./logs/mlruns:/app/logs/mlruns
+    ports:
+      - "5001:5001"
+    restart: always
